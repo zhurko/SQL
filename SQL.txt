@@ -1,0 +1,97 @@
+Задание: 4 
+Найдите все записи таблицы Printer для цветных принтеров.
+
+Select *
+from Printer
+where color='y'
+_______________________________________________________________________________
+
+Задание: 5
+Найдите номер модели, скорость и размер жесткого диска ПК, имеющих 12x или 24x CD и цену менее 600 дол.
+
+
+Select model, speed, hd
+from pc
+where cd IN ('12x','24x') and price<600
+________________________________________________________________________________
+
+Задание: 6 
+Для каждого производителя, выпускающего ПК-блокноты c объёмом жесткого диска не менее 10 Гбайт, найти скорости таких ПК-блокнотов. Вывод: производитель, скорость.
+
+Select distinct product.maker, laptop.speed
+from product join laptop
+on product.model=laptop.model
+where  laptop.hd>=10
+
+
+__________________________________________________________________________________
+Задание: 7 
+Найдите номера моделей и цены всех имеющихся в продаже продуктов (любого типа) производителя B (латинская буква).
+
+Select product.model, laptop.price
+from product inner join laptop
+on product.model=laptop.model
+where product.maker='B'
+
+UNION
+
+Select product.model, pc.price
+from product inner join pc
+on product.model=pc.model
+where product.maker='B'
+
+UNION
+
+Select product.model, printer.price
+from product inner join printer
+on product.model=printer.model
+where product.maker='B'
+
+_________________________________________________________________________________
+
+Задание: 8 
+Найдите производителя, выпускающего ПК, но не ПК-блокноты.
+
+Select distinct maker
+from product
+where type='PC'
+
+EXCEPT
+
+Select distinct maker
+from product
+where type='Laptop'
+
+_________________________________________________________________________________
+
+Задание: 9 
+Найдите производителей ПК с процессором не менее 450 Мгц. Вывести: Maker
+
+Select distinct product.maker
+from product inner join pc
+on product.model=pc.model
+where pc.speed>=450
+
+
+________________________________________________________________________________
+
+Задание: 10 
+Найдите модели принтеров, имеющих самую высокую цену. Вывести: model, price
+
+Select model, price
+from printer
+where price= (select max(price) from printer)
+
+_________________________________________________________________________________
+
+Задание: 11 
+Найдите среднюю скорость ПК.
+
+Select avg(speed) as Speed
+from pc
+
+_________________________________________________________________________________
+
+
+
+
